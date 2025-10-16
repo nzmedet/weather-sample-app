@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import View from '@nzmedet/view-on-steroids'
 
+import Card from 'src/components/Card'
 import { MainStackScreenProps } from 'src/navigation/routes'
 import { useWeather } from 'src/services/client'
 import { useAppSelector } from 'src/store'
@@ -32,7 +33,7 @@ export default function Screen({ navigation }: MainStackScreenProps<'Search'>) {
 
   return (
     <View flex={1} gap={20} padding={20}>
-      <View backgroundColor='#fff' padding={20}>
+      <Card>
         {isPending && <ActivityIndicator size='large' />}
         {isError && <Text style={s.errorText}>{error.message}</Text>}
         <TextInput
@@ -43,14 +44,16 @@ export default function Screen({ navigation }: MainStackScreenProps<'Search'>) {
           clearButtonMode='always'
         />
         <Button title='Search' onPress={() => handleSearch(query)} />
-      </View>
+      </Card>
       {searchHistory.city && (
-        <View alignItems='center' backgroundColor='#fff' padding={20}>
-          <Text>Last searched city: </Text>
-          <TouchableWithoutFeedback onPress={() => handleSearch(searchHistory.city!)}>
-            <Text style={s.historyText}>{searchHistory.city}</Text>
-          </TouchableWithoutFeedback>
-        </View>
+        <Card>
+          <View flexDirection='row'>
+            <Text>Last searched city: </Text>
+            <TouchableWithoutFeedback onPress={() => handleSearch(searchHistory.city!)}>
+              <Text style={s.historyText}>{searchHistory.city}</Text>
+            </TouchableWithoutFeedback>
+          </View>
+        </Card>
       )}
     </View>
   )
