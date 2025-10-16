@@ -12,3 +12,7 @@ npm run ios
 ```
 npm run web
 ```
+
+# important
+
+Currently `.env` file is stored in git to run app for demo

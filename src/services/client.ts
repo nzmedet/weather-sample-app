@@ -4,19 +4,15 @@ import { CityOverview } from './scheme'
 import { fetchJson } from './utils'
 
 export const client = new QueryClient()
-const API_KEY = '74acd9b19168487d064b89db93a480f9'
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY
 
 async function fetchWeather(city: string) {
   if (!city) return null
 
-  try {
-    const weatherData = await fetchJson<CityOverview>(
-      `http://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&APPID=${API_KEY}&units=metric`
-    )
-    return weatherData
-  } catch {
-    throw new Error('City not found')
-  }
+  const weatherData = await fetchJson<CityOverview>(
+    `http://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&APPID=${API_KEY}&units=metric`
+  )
+  return weatherData
 }
 
 export function useWeather() {
